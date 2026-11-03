@@ -1163,23 +1163,24 @@
         <div class="lg:col-span-7">
           <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-800 relative">
             <h3 class="text-xl font-bold text-white mb-2">Send a Direct Message</h3>
-            <p class="text-slate-400 text-xs font-mono mb-6">Recipient: ochiengabihud750@gmail.com</p>
+            <p class="text-slate-400 text-xs font-mono mb-6">Messages are delivered to ochiengabihud750@gmail.com via Formspree.</p>
 
-            <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+            <form id="contactForm" action="https://formspree.io/f/moeeyeav" method="POST" onsubmit="handleFormSubmit(event)" class="space-y-4">
+              <input type="hidden" name="_subject" value="New portfolio inquiry" />
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label for="senderName" class="block text-xs font-mono text-slate-300 uppercase mb-1">Your Name *</label>
-                  <input type="text" id="senderName" required placeholder="e.g. Sarah Jenkins" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors" />
+                  <input type="text" id="senderName" name="name" required placeholder="e.g. Sarah Jenkins" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors" />
                 </div>
                 <div>
                   <label for="senderEmail" class="block text-xs font-mono text-slate-300 uppercase mb-1">Your Email *</label>
-                  <input type="email" id="senderEmail" required placeholder="name@company.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors" />
+                  <input type="email" id="senderEmail" name="email" required placeholder="name@company.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors" />
                 </div>
               </div>
 
               <div>
                 <label for="projectScope" class="block text-xs font-mono text-slate-300 uppercase mb-1">Inquiry / Project Category *</label>
-                <select id="projectScope" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors">
+                <select id="projectScope" name="category" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition-colors">
                   <option value="Graphic Design & Brand Artwork (Ajira Digital Certified)">🎨 Graphic Design & Creative Branding (Ajira Digital Certified)</option>
                   <option value="Web Design & Frontend Development (PLP Academy Certified)">💻 Web Design & Frontend Development (PLP Academy Certified)</option>
                   <option value="AI Training / Model Evaluation (RLHF)">🤖 AI Training, RLHF & Data Annotation (Sovrano AI)</option>
@@ -1192,7 +1193,7 @@
 
               <div>
                 <label for="messageBody" class="block text-xs font-mono text-slate-300 uppercase mb-1">Project Details or Message *</label>
-                <textarea id="messageBody" rows="4" required placeholder="Describe your design brief, website specifications, or AI annotation project requirements..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
+                <textarea id="messageBody" name="message" rows="4" required placeholder="Describe your design brief, website specifications, or AI annotation project requirements..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition-colors"></textarea>
               </div>
 
               <button type="submit" id="submitFormBtn" class="w-full py-3.5 rounded-xl font-semibold text-slate-950 bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 active:scale-95">
@@ -1201,11 +1202,12 @@
             </form>
 
             <!-- Feedback Toast Notification Container inside Form -->
-            <div id="formSuccessToast" class="hidden mt-4 p-4 rounded-xl bg-emerald-950/80 border border-emerald-600 text-emerald-200 text-sm font-mono flex items-start gap-3">
-              <i class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
+            <div id="formStatusToast" role="status" aria-live="polite" class="hidden mt-4 p-4 rounded-xl text-sm font-mono items-start gap-3">
+              <i id="formStatusIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5"></i>
               <div>
-                <strong class="text-white block">Message Transmitted!</strong>
-                <span id="toastDetails">Your message was formatted and logged. An automatic email draft has been generated for direct synchronization.</span>
+                <strong id="formStatusTitle" class="text-white block"></strong>
+                <span id="formStatusDetails"></span>
+                <a id="formFallbackLink" href="mailto:ochiengabihud750@gmail.com" class="hidden mt-2 text-cyan-300 underline">Email me directly instead</a>
               </div>
             </div>
 
@@ -1583,35 +1585,66 @@
     }
 
     // 7. Interactive Contact Form Handler
-    function handleFormSubmit(event) {
+    async function handleFormSubmit(event) {
       event.preventDefault();
-      const name = document.getElementById('senderName').value;
-      const email = document.getElementById('senderEmail').value;
-      const scope = document.getElementById('projectScope').value;
-      const message = document.getElementById('messageBody').value;
+      const form = event.currentTarget;
       const btn = document.getElementById('submitFormBtn');
-      const toast = document.getElementById('formSuccessToast');
-      const toastDetails = document.getElementById('toastDetails');
+      const toast = document.getElementById('formStatusToast');
+      const toastIcon = document.getElementById('formStatusIcon');
+      const toastTitle = document.getElementById('formStatusTitle');
+      const toastDetails = document.getElementById('formStatusDetails');
+      const fallbackLink = document.getElementById('formFallbackLink');
+      const formData = new FormData(form);
+      const name = String(formData.get('name') || '');
+      const scope = String(formData.get('category') || '');
+      const message = String(formData.get('message') || '');
+      const fallbackSubject = encodeURIComponent(`[Portfolio Inquiry] ${scope} - from ${name}`);
+      const fallbackBody = encodeURIComponent(`Hello Abihud,\n\nName: ${name}\nEmail: ${formData.get('email')}\nCategory: ${scope}\n\nProject Scope:\n${message}\n\nSent from your Portfolio`);
 
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Formatting Transmission...`;
+      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Sending Message...`;
 
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.innerHTML = `<i class="fa-solid fa-check"></i> Transmitted Successfully`;
-        btn.classList.replace('from-cyan-400', 'from-emerald-500');
-        btn.classList.replace('to-emerald-400', 'to-emerald-600');
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { Accept: 'application/json' }
+        });
 
-        toastDetails.textContent = `Thank you, ${name}! Your dispatch regarding "${scope}" is registered. Launching local email client draft to ochiengabihud750@gmail.com.`;
         toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        fallbackLink.href = `mailto:ochiengabihud750@gmail.com?subject=${fallbackSubject}&body=${fallbackBody}`;
 
-        // Mailto trigger as automated fail-safe
-        const subject = encodeURIComponent(`[Portfolio Inquiry] ${scope} - from ${name}`);
-        const body = encodeURIComponent(`Hello Abihud,\n\nName: ${name}\nEmail: ${email}\nCategory: ${scope}\n\nProject Scope:\n${message}\n\nSent from your Portfolio`);
-        window.location.href = `mailto:ochiengabihud750@gmail.com?subject=${subject}&body=${body}`;
+        if (!response.ok) {
+          console.error(`Contact form submission failed with HTTP ${response.status}.`);
+          toast.className = 'mt-4 p-4 rounded-xl bg-red-950/80 border border-red-600 text-red-200 text-sm font-mono flex items-start gap-3';
+          toastIcon.className = 'fa-solid fa-circle-exclamation text-red-400 text-lg mt-0.5';
+          toastTitle.textContent = 'Message Not Sent';
+          toastDetails.textContent = `The form service rejected the message (HTTP ${response.status}). Your message is still here; try again or email me directly.`;
+          fallbackLink.classList.remove('hidden');
+          return;
+        }
 
-        document.getElementById('contactForm').reset();
-      }, 1000);
+        toast.className = 'mt-4 p-4 rounded-xl bg-emerald-950/80 border border-emerald-600 text-emerald-200 text-sm font-mono flex items-start gap-3';
+        toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-lg mt-0.5';
+        toastTitle.textContent = 'Message Received';
+        toastDetails.textContent = `Thank you, ${name}. Formspree accepted your message, and it will be delivered to the portfolio inbox.`;
+        fallbackLink.classList.add('hidden');
+        form.reset();
+      } catch (error) {
+        console.error('Contact form could not reach Formspree:', error);
+        toast.className = 'mt-4 p-4 rounded-xl bg-red-950/80 border border-red-600 text-red-200 text-sm font-mono flex items-start gap-3';
+        toastIcon.className = 'fa-solid fa-circle-exclamation text-red-400 text-lg mt-0.5';
+        toastTitle.textContent = 'Message Not Confirmed';
+        toastDetails.textContent = 'We could not reach the form service, so delivery was not confirmed. Your message is still here; try again or email me directly.';
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        fallbackLink.href = `mailto:ochiengabihud750@gmail.com?subject=${fallbackSubject}&body=${fallbackBody}`;
+        fallbackLink.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-paper-plane text-sm"></i> Send Transmission`;
+      }
     }
 
     // 8. Resume Modal Controls
