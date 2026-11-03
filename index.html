@@ -122,14 +122,14 @@
 
       <!-- Desktop Nav Links -->
       <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-        <a href="#about" class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">About</a>
-        <a href="#samples" class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Work Samples</a>
-        <a href="#designs" class="px-3 py-2 text-sm text-amber-300 hover:text-amber-400 rounded-lg transition-colors font-medium flex items-center gap-1.5">
+        <a href="#about" data-section-nav class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">About</a>
+        <a href="#samples" data-section-nav class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Work Samples</a>
+        <a href="#designs" data-section-nav class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium flex items-center gap-1.5">
           <i class="fa-solid fa-palette text-xs"></i> Graphic Design
         </a>
-        <a href="#skills" class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Skills & Toolkit</a>
-        <a href="#experience" class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Experience</a>
-        <a href="#credentials" class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Education & Badges</a>
+        <a href="#skills" data-section-nav class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Skills & Toolkit</a>
+        <a href="#experience" data-section-nav class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Experience</a>
+        <a href="#credentials" data-section-nav class="px-3 py-2 text-sm text-slate-300 hover:text-cyan-400 rounded-lg transition-colors font-medium">Education & Badges</a>
       </nav>
 
       <!-- CTA & Mobile Trigger -->
@@ -147,13 +147,13 @@
 
     <!-- Mobile Navigation Drawer -->
     <div id="mobileMenu" class="hidden md:hidden px-4 pt-2 pb-6 space-y-2 border-t border-slate-800 bg-[#030712]/95 backdrop-blur-lg">
-      <a href="#about" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">About</a>
-      <a href="#samples" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Work Samples</a>
-      <a href="#designs" class="block px-3 py-2 rounded-lg text-base font-medium text-amber-300 hover:bg-slate-800 mobile-nav-link"><i class="fa-solid fa-palette mr-2"></i>Graphic Design</a>
-      <a href="#skills" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Skills & Toolkit</a>
-      <a href="#experience" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Experience</a>
-      <a href="#credentials" class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Education</a>
-      <a href="#contact" class="block px-3 py-2 rounded-lg text-base font-semibold text-cyan-400 hover:bg-cyan-950/40 mobile-nav-link">Contact Me</a>
+      <a href="#about" data-section-nav class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">About</a>
+      <a href="#samples" data-section-nav class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Work Samples</a>
+      <a href="#designs" data-section-nav class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link"><i class="fa-solid fa-palette mr-2"></i>Graphic Design</a>
+      <a href="#skills" data-section-nav class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Skills & Toolkit</a>
+      <a href="#experience" data-section-nav class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Experience</a>
+      <a href="#credentials" data-section-nav class="block px-3 py-2 rounded-lg text-base font-medium text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Education</a>
+      <a href="#contact" data-section-nav class="block px-3 py-2 rounded-lg text-base font-semibold text-slate-300 hover:bg-slate-800 hover:text-cyan-400 mobile-nav-link">Contact Me</a>
     </div>
   </header>
 
@@ -357,8 +357,8 @@
         <!-- Design Sample 1: Fanta Brand Artwork -->
         <div class="glass-card rounded-3xl p-6 border border-amber-500/30 hover:border-amber-400/70 transition-all duration-300 flex flex-col justify-between group shadow-xl hover:shadow-amber-500/10">
           <div>
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-slate-900 p-2 border border-slate-800 cursor-pointer" onclick="openLightbox('image_7b6fa4.jpg', 'Fanta Orange Dynamic Splash - Commercial Product Poster', 'High-energy commercial advertisement visual crafted with fluid dynamics, custom splash composite manipulation, vibrant citrus color balancing, and energetic typography.')">
-              <img src="/images/fanta.jfif" alt="Fanta Dynamic Splash Brand Design by Abihud Ochieng" class="w-full h-80 sm:h-96 object-contain rounded-xl transition-transform duration-500 group-hover:scale-105" />
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-slate-900 p-2 border border-slate-800 cursor-pointer" onclick="openLightbox('images/fanta.jfif', 'Fanta Orange Dynamic Splash - Commercial Product Poster', 'High-energy commercial advertisement visual crafted with fluid dynamics, custom splash composite manipulation, vibrant citrus color balancing, and energetic typography.')">
+              <img src="images/fanta.jfif" alt="Fanta Dynamic Splash Brand Design by Abihud Ochieng" class="w-full h-80 sm:h-96 object-contain rounded-xl transition-transform duration-500 group-hover:scale-105" />
               <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-xl backdrop-blur-xs">
                 <span class="px-4 py-2 rounded-xl bg-slate-900/90 text-amber-300 font-mono text-xs border border-amber-400/40 shadow-lg flex items-center gap-2">
                   <i class="fa-solid fa-magnifying-glass-plus"></i> View Full Resolution
@@ -386,7 +386,7 @@
               <span class="px-2 py-1 bg-slate-900 text-slate-300 rounded border border-slate-800">Visual Compositing</span>
               <span class="px-2 py-1 bg-slate-900 text-slate-300 rounded border border-slate-800">Poster Art</span>
             </div>
-            <button onclick="openLightbox('image_7b6fa4.jpg', 'Fanta Orange Dynamic Splash - Commercial Product Poster', 'High-energy commercial advertisement visual crafted with fluid dynamics, custom splash composite manipulation, vibrant citrus color balancing, and energetic typography.')" class="text-amber-400 hover:text-amber-300 flex items-center gap-1 font-semibold">
+            <button onclick="openLightbox('images/fanta.jfif', 'Fanta Orange Dynamic Splash - Commercial Product Poster', 'High-energy commercial advertisement visual crafted with fluid dynamics, custom splash composite manipulation, vibrant citrus color balancing, and energetic typography.')" class="text-amber-400 hover:text-amber-300 flex items-center gap-1 font-semibold">
               Inspect details <i class="fa-solid fa-arrow-right text-[10px]"></i>
             </button>
           </div>
@@ -395,8 +395,8 @@
         <!-- Design Sample 2: 'Ni Uchungu Sana' Apparel Artwork -->
         <div class="glass-card rounded-3xl p-6 border border-cyan-500/30 hover:border-cyan-400/70 transition-all duration-300 flex flex-col justify-between group shadow-xl hover:shadow-cyan-500/10">
           <div>
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500/20 via-slate-800 to-slate-900 p-2 border border-slate-800 cursor-pointer" onclick="openLightbox('mosiria.jpeg', 'Ni Uchungu Sana - Streetwear Apparel & Vector Illustration', 'Custom graphic illustration on apparel mockup. Features stylized portrait vector shading, expressive facial contours, hand-drawn typography lettering, and print-ready garment positioning.')">
-              <img src="/images/mosiria.jpeg" alt="Ni Uchungu Sana Streetwear Illustration by Abihud Ochieng" class="w-full h-80 sm:h-96 object-contain rounded-xl transition-transform duration-500 group-hover:scale-105" />
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500/20 via-slate-800 to-slate-900 p-2 border border-slate-800 cursor-pointer" onclick="openLightbox('images/mosiria.jpeg', 'Ni Uchungu Sana - Streetwear Apparel & Vector Illustration', 'Custom graphic illustration on apparel mockup. Features stylized portrait vector shading, expressive facial contours, hand-drawn typography lettering, and print-ready garment positioning.')">
+              <img src="images/mosiria.jpeg" alt="Ni Uchungu Sana Streetwear Illustration by Abihud Ochieng" class="w-full h-80 sm:h-96 object-contain rounded-xl transition-transform duration-500 group-hover:scale-105" />
               <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-xl backdrop-blur-xs">
                 <span class="px-4 py-2 rounded-xl bg-slate-900/90 text-cyan-300 font-mono text-xs border border-cyan-400/40 shadow-lg flex items-center gap-2">
                   <i class="fa-solid fa-magnifying-glass-plus"></i> View Full Resolution
@@ -424,7 +424,7 @@
               <span class="px-2 py-1 bg-slate-900 text-slate-300 rounded border border-slate-800">Vector Art</span>
               <span class="px-2 py-1 bg-slate-900 text-slate-300 rounded border border-slate-800">Custom Typography</span>
             </div>
-            <button onclick="openLightbox('mosiria.jpeg', 'Ni Uchungu Sana - Streetwear Apparel & Vector Illustration', 'Custom graphic illustration on apparel mockup. Features stylized portrait vector shading, expressive facial contours, hand-drawn typography lettering, and print-ready garment positioning.')" class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold">
+            <button onclick="openLightbox('images/mosiria.jpeg', 'Ni Uchungu Sana - Streetwear Apparel & Vector Illustration', 'Custom graphic illustration on apparel mockup. Features stylized portrait vector shading, expressive facial contours, hand-drawn typography lettering, and print-ready garment positioning.')" class="text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold">
               Inspect details <i class="fa-solid fa-arrow-right text-[10px]"></i>
             </button>
           </div>
@@ -1232,7 +1232,7 @@
 
       <!-- Preview Image Container -->
       <div class="rounded-2xl bg-slate-950/80 p-2 border border-slate-800 flex items-center justify-center max-h-[60vh] overflow-hidden">
-        <img id="lightboxImage" src="" alt="Full Resolution Graphic Design Preview" class="max-h-[58vh] w-auto object-contain rounded-xl shadow-2xl" />
+        <img id="lightboxImage" src="" alt="Full Resolution Graphic Design Preview" class="max-h-[58vh] max-w-full w-auto object-contain rounded-xl shadow-2xl" />
       </div>
 
       <!-- Description -->
@@ -1338,6 +1338,40 @@
         menuIcon.classList.add('fa-bars');
       });
     });
+
+    // Highlight the navigation link for the section currently in view.
+    const sectionNavLinks = document.querySelectorAll('[data-section-nav]');
+    const sectionTargets = [...new Set(
+      Array.from(sectionNavLinks, link => document.querySelector(link.getAttribute('href'))).filter(Boolean)
+    )];
+
+    function setActiveSection(sectionId) {
+      sectionNavLinks.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${sectionId}`;
+        link.classList.toggle('text-amber-300', isActive);
+        link.classList.toggle('text-slate-300', !isActive);
+        link.classList.toggle('hover:text-amber-400', isActive);
+        link.classList.toggle('hover:text-cyan-400', !isActive);
+
+        if (isActive) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    const sectionObserver = new IntersectionObserver(entries => {
+      const activeEntry = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+
+      if (activeEntry) {
+        setActiveSection(activeEntry.target.id);
+      }
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sectionTargets.forEach(section => sectionObserver.observe(section));
 
     // 2. Typewriter Effect in Hero
     const roles = [
