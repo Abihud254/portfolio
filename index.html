@@ -53,6 +53,9 @@
   </script>
 
   <style>
+    html {
+      overflow-x: clip;
+    }
     /* Custom subtle tech grid pattern */
     .bg-grid-pattern {
       background-size: 36px 36px;
@@ -76,6 +79,34 @@
       background: linear-gradient(135deg, #38bdf8 0%, #34d399 50%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+    .reveal-enabled .scroll-reveal {
+      opacity: 0;
+      transform: translate3d(0, 28px, 0) scale(0.96);
+      transition: opacity 650ms ease, transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .reveal-enabled .scroll-reveal:nth-child(4n + 2) {
+      transform: translate3d(24px, 20px, 0) scale(0.96);
+      transition-delay: 70ms;
+    }
+    .reveal-enabled .scroll-reveal:nth-child(4n + 3) {
+      transform: scale(0.9);
+      transition-delay: 140ms;
+    }
+    .reveal-enabled .scroll-reveal:nth-child(4n) {
+      transform: translate3d(-24px, 20px, 0) scale(0.96);
+      transition-delay: 210ms;
+    }
+    .reveal-enabled .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-enabled .scroll-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
     /* Custom scrollbar */
     ::-webkit-scrollbar {
@@ -161,7 +192,7 @@
 
     <!-- 1. HERO SECTION -->
     <section id="hero" class="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16 bg-grid-pattern">
-      <div class="max-w-6xl mx-auto text-center space-y-8">
+      <div class="w-full max-w-6xl min-w-0 mx-auto text-center space-y-8">
         
         <!-- Live Status Pill -->
         <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card border border-slate-700 text-xs sm:text-sm font-medium text-slate-300 shadow-xl">
@@ -173,13 +204,13 @@
 
         <!-- Hero Headline -->
         <div class="space-y-4">
-          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
+          <h1 class="text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
             Engineering Precision in <br class="hidden sm:block" />
             <span class="gradient-text">Generative AI & Data Systems</span>
           </h1>
-          <div class="text-lg sm:text-2xl font-mono text-slate-400 h-8 flex items-center justify-center gap-2">
+          <div class="text-base sm:text-2xl font-mono text-slate-400 min-h-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
             <span>Specializing in:</span>
-            <span id="typewriterText" class="text-cyan-400 font-semibold border-r-2 border-cyan-400 pr-1"></span>
+            <span id="typewriterText" class="min-w-0 max-w-full break-words text-cyan-400 font-semibold border-r-2 border-cyan-400 pr-1"></span>
           </div>
         </div>
 
@@ -189,49 +220,46 @@
         </p>
 
         <!-- CTAs & Action Buttons -->
-        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-          <a href="#samples" class="px-6 py-3.5 rounded-xl font-semibold text-slate-900 bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2 active:scale-95">
+        <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 pt-2">
+          <a href="#samples" class="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl font-semibold text-slate-900 bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2 active:scale-95">
             <i class="fa-solid fa-code text-sm"></i> Explore Interactive Demos
           </a>
-          <a href="#contact" class="px-6 py-3.5 rounded-xl font-semibold text-white glass-card border border-slate-700 hover:border-cyan-500 hover:bg-slate-800/80 transition-all flex items-center gap-2 active:scale-95">
+          <a href="#contact" class="w-full sm:w-auto justify-center px-6 py-3.5 rounded-xl font-semibold text-white glass-card border border-slate-700 hover:border-cyan-500 hover:bg-slate-800/80 transition-all flex items-center gap-2 active:scale-95">
             <i class="fa-regular fa-envelope text-sm"></i> Contact Abihud
           </a>
-          <button onclick="triggerResumeModal()" class="px-5 py-3.5 rounded-xl font-semibold text-slate-300 glass-card border border-slate-800 hover:text-white hover:border-slate-600 transition-all flex items-center gap-2 active:scale-95 text-sm">
-            <i class="fa-solid fa-file-arrow-down text-emerald-400"></i> Download CVs
-          </button>
         </div>
 
         <!-- Social Proof & Direct Profile Links -->
-        <div class="pt-6 flex items-center justify-center gap-6 text-slate-400 text-lg">
+        <div class="pt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-slate-400 text-base sm:text-lg">
           <a href="https://www.linkedin.com/in/ochieng-abihud-8342913a7" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors flex items-center gap-2 text-sm font-mono">
             <i class="fa-brands fa-linkedin text-xl text-[#0a66c2]"></i> LinkedIn
           </a>
-          <span class="text-slate-700">•</span>
+          <span class="hidden sm:inline text-slate-700">•</span>
           <a href="https://github.com/Abihud254" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition-colors flex items-center gap-2 text-sm font-mono">
             <i class="fa-brands fa-github text-xl text-white"></i> GitHub
           </a>
-          <span class="text-slate-700">•</span>
-          <button onclick="copyEmailToClipboard()" class="hover:text-emerald-400 transition-colors flex items-center gap-2 text-sm font-mono group">
-            <i class="fa-solid fa-envelope text-slate-300 group-hover:text-emerald-400"></i> <span id="emailTextCopy">ochiengabihud750@gmail.com</span>
+          <span class="hidden sm:inline text-slate-700">•</span>
+          <button onclick="copyEmailToClipboard()" class="min-w-0 max-w-full hover:text-emerald-400 transition-colors flex items-center gap-2 text-xs sm:text-sm font-mono group">
+            <i class="fa-solid fa-envelope text-slate-300 group-hover:text-emerald-400"></i> <span id="emailTextCopy" class="break-all sm:break-normal">ochiengabihud750@gmail.com</span>
             <i class="fa-regular fa-copy text-xs opacity-60 group-hover:opacity-100"></i>
           </button>
         </div>
 
         <!-- Key Metrics Ribbon -->
-        <div class="pt-10 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          <div class="glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
+        <div class="pt-10 grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="min-w-0 glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
             <div class="text-2xl sm:text-3xl font-mono font-bold text-cyan-400">100%</div>
             <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Zero-Error Data Verification</div>
           </div>
-          <div class="glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
-            <div class="text-2xl sm:text-3xl font-mono font-bold text-emerald-400">RLHF & Vision</div>
+          <div class="min-w-0 glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
+            <div class="text-xl sm:text-3xl font-mono font-bold text-emerald-400 break-words">RLHF & Vision</div>
             <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">AI Alignment & Evaluation</div>
           </div>
-          <div class="glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
+          <div class="min-w-0 glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
             <div class="text-2xl sm:text-3xl font-mono font-bold text-amber-400">Ajira & PLP</div>
             <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Graphic & Web Design Certified</div>
           </div>
-          <div class="glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
+          <div class="min-w-0 glass-card p-4 rounded-2xl border border-slate-800/80 text-left">
             <div class="text-2xl sm:text-3xl font-mono font-bold text-violet-400">BSc Honours</div>
             <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">Mathematical Statistics</div>
           </div>
@@ -965,7 +993,7 @@
     </section>
 
 
-    <!-- 6. EDUCATION, CREDENTIALS & REFEREES -->
+    <!-- 6. EDUCATION & CREDENTIALS -->
     <section id="credentials" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-900">
       <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-amber-950/60 border border-amber-800/60 text-amber-300 text-xs font-mono uppercase tracking-wider">
@@ -1055,29 +1083,6 @@
 
       </div>
 
-      <!-- Professional Referees Card -->
-      <div class="mt-12 glass-card rounded-2xl p-6 border border-slate-800">
-        <h4 class="text-sm font-mono text-slate-300 uppercase tracking-wider font-semibold mb-4 flex items-center gap-2">
-          <i class="fa-solid fa-user-check text-cyan-400"></i> Verified Professional Referees
-        </h4>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
-          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <strong class="text-white block text-sm">Miss Linet Wambui</strong>
-            <span class="text-slate-400 block mt-0.5">General Manager, Writers Sans Frontières</span>
-            <a href="mailto:linetw303@gmail.com" class="text-cyan-400 hover:underline mt-2 inline-block">linetw303@gmail.com</a>
-          </div>
-          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <strong class="text-white block text-sm">Mr. Joseph Onyimbo</strong>
-            <span class="text-slate-400 block mt-0.5">Accountant & Technical Instructor</span>
-            <a href="mailto:josephonyimbo2005@gmail.com" class="text-cyan-400 hover:underline mt-2 inline-block">josephonyimbo2005@gmail.com</a>
-          </div>
-          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <strong class="text-white block text-sm">Madam Lilian Walukhu</strong>
-            <span class="text-slate-400 block mt-0.5">Sponsors Coordinator, Giraffe Project</span>
-            <a href="mailto:lilianwalukhu225@gmail.com" class="text-cyan-400 hover:underline mt-2 inline-block">lilianwalukhu225@gmail.com</a>
-          </div>
-        </div>
-      </div>
     </section>
 
 
@@ -1252,66 +1257,6 @@
     </div>
   </div>
 
-  <!-- MODAL: RESUME ARCHIVE VIEWER -->
-  <div id="resumeModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-card max-w-lg w-full rounded-2xl border border-slate-700 p-6 space-y-4 shadow-2xl">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-file-lines text-cyan-400"></i> Download Tailored Curricula Vitae
-        </h3>
-        <button onclick="closeResumeModal()" class="text-slate-400 hover:text-white text-lg">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <p class="text-xs text-slate-300 leading-relaxed">
-        Select the tailored resume variant that best aligns with your team's project requirements:
-      </p>
-
-      <div class="space-y-3 font-mono text-xs">
-        <a href="mailto:ochiengabihud750@gmail.com?subject=Request%20for%20AI%20Trainer%20CV" class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500 transition-colors group">
-          <div class="flex items-center gap-3">
-            <i class="fa-solid fa-robot text-cyan-400 text-base"></i>
-            <div>
-              <span class="text-white font-bold block">AI Trainer & Multimodal Specialist CV</span>
-              <span class="text-slate-400 text-[10px]">RLHF, Prompt Engineering, Model Benchmarking</span>
-            </div>
-          </div>
-          <i class="fa-solid fa-download text-slate-400 group-hover:text-cyan-400"></i>
-        </a>
-
-        <a href="mailto:ochiengabihud750@gmail.com?subject=Request%20for%20Full%20Stack%20%26%20Data%20Automation%20CV" class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500 transition-colors group">
-          <div class="flex items-center gap-3">
-            <i class="fa-solid fa-terminal text-emerald-400 text-base"></i>
-            <div>
-              <span class="text-white font-bold block">Software & Data Automation Developer CV</span>
-              <span class="text-slate-400 text-[10px]">Python, Pandas, JavaScript, Apps Script, SQL</span>
-            </div>
-          </div>
-          <i class="fa-solid fa-download text-slate-400 group-hover:text-emerald-400"></i>
-        </a>
-
-        <a href="mailto:ochiengabihud750@gmail.com?subject=Request%20for%20Document%20Verification%20CV" class="flex items-center justify-between p-3.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-violet-500 transition-colors group">
-          <div class="flex items-center gap-3">
-            <i class="fa-solid fa-shield-check text-violet-400 text-base"></i>
-            <div>
-              <span class="text-white font-bold block">Document Processing & Quality Assurance CV</span>
-              <span class="text-slate-400 text-[10px]">OCR verification, Kenyan ID schemas, Zero-error auditing</span>
-            </div>
-          </div>
-          <i class="fa-solid fa-download text-slate-400 group-hover:text-violet-400"></i>
-        </a>
-      </div>
-
-      <div class="pt-3 border-t border-slate-800 flex justify-end">
-        <button onclick="closeResumeModal()" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-
-
   <!-- CLIENT JAVASCRIPT LOGIC -->
   <script>
     // 1. Mobile Menu Toggle
@@ -1374,6 +1319,25 @@
     }, { rootMargin: '-20% 0px -70% 0px' });
 
     sectionTargets.forEach(section => sectionObserver.observe(section));
+
+    // Reveal content cards as they enter the viewport.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      const revealElements = document.querySelectorAll('main section:not(#hero) .glass-card, main section:not(#hero) .grid > div');
+
+      revealElements.forEach(element => {
+        element.classList.add('scroll-reveal');
+        revealObserver.observe(element);
+      });
+      document.body.classList.add('reveal-enabled');
+    }
 
     // 2. Typewriter Effect in Hero
     const roles = [
@@ -1647,15 +1611,7 @@
       }
     }
 
-    // 8. Resume Modal Controls
-    function triggerResumeModal() {
-      document.getElementById('resumeModal').classList.remove('hidden');
-    }
-    function closeResumeModal() {
-      document.getElementById('resumeModal').classList.add('hidden');
-    }
-
-    // 9. Lightbox for Graphic Design Previews
+    // 8. Lightbox for Graphic Design Previews
     function openLightbox(imageSrc, title, description) {
       document.getElementById('lightboxImage').src = imageSrc;
       document.getElementById('lightboxTitle').textContent = title;
